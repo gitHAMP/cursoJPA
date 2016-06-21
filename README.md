@@ -3,17 +3,17 @@
 
 ##0.Presentacion
 
-El API de Persistence Java (JPA) es una especificaciÃ³n independiente de proveedor  para el mapeo de objetos Java a las tablas de bases de datos relacionales. Implementaciones de esta especificaciÃ³n permite a los desarrolladores de aplicaciones abstraer del producto de base de datos especÃ­fica con la que estÃ¡n trabajando y les permiten implementar operaciones CRUD (crear, leer, actualizar y eliminar) las operaciones de tal manera que el mismo cÃ³digo funciona en diferentes productos de base de datos. Estos marcos no sÃ³lo manejan el cÃ³digo que interactÃºa con la base de datos (el cÃ³digo JDBC), sino tambiÃ©n  mapear los tipos de estructuras de datos utilizadas por la aplicaciÃ³n.
+El API de Persistence Java (JPA) es una especificación independiente de proveedor  para el mapeo de objetos Java a las tablas de bases de datos relacionales. Implementaciones de esta especificación permite a los desarrolladores de aplicaciones abstraer del producto de base de datos específica con la que están trabajando y les permiten implementar operaciones CRUD (crear, leer, actualizar y eliminar) las operaciones de tal manera que el mismo código funciona en diferentes productos de base de datos. Estos marcos no sólo manejan el código que interactúa con la base de datos (el código JDBC), sino también  mapear los tipos de estructuras de datos utilizadas por la aplicación.
 
 Los 3 componentes de JPA son:
 
-*  Entidades(Entities): En las versiones actuales las entidades JPA son POJO's. Las versiones anteriores de JPA se obligados a extender como subclase  de las clases proporcionadas por JPA, pero este enfoque hacÃ­a mÃ¡s difÃ­ciles realizar pruebas debido a dichas dependecies, las nuevas versiones de JPA no requieren que las entidades sean subclase de alguna clase de Framework.
+*  Entidades(Entities): En las versiones actuales las entidades JPA son POJO's. Las versiones anteriores de JPA se obligados a extender como subclase  de las clases proporcionadas por JPA, pero este enfoque hacía más difíciles realizar pruebas debido a dichas dependecies, las nuevas versiones de JPA no requieren que las entidades sean subclase de alguna clase de Framework.
 
-* Metadatos objeto-relacional: El desarrollador de la aplicaciÃ³n debe proporcionar la asignaciÃ³n entre las clases Java y sus atributos a las tablas y columnas de la base de datos. Esto se puede hacer cualquiera de los archivos de configuraciÃ³n mÃ­nimas dedicados o en la versiÃ³n mÃ¡s reciente tambiÃ©n por anotaciones.
+* Metadatos objeto-relacional: El desarrollador de la aplicación debe proporcionar la asignación entre las clases Java y sus atributos a las tablas y columnas de la base de datos. Esto se puede hacer cualquiera de los archivos de configuración mínimas dedicados o en la versión más reciente también por anotaciones.
 
-* Java Persistence Query Language (JPQL): Como JPA tiene como objetivo abstracto a partir del producto de base de datos especÃ­fica, el framework tambiÃ©n proporciona un langauge consultas dedicado que se puede utilizar en lugar de SQL. Esta traducciÃ³n de JPQL a SQL permite que las implementaciones del framework de soporte a diferentes dialectos de bases de datos y permite que el desarrollador ejecutar consultas en una base de datos de forma independiente asu vendor.
+* Java Persistence Query Language (JPQL): Como JPA tiene como objetivo abstracto a partir del producto de base de datos específica, el framework también proporciona un langauge consultas dedicado que se puede utilizar en lugar de SQL. Esta traducción de JPQL a SQL permite que las implementaciones del framework de soporte a diferentes dialectos de bases de datos y permite que el desarrollador ejecutar consultas en una base de datos de forma independiente asu vendor.
 
-En este tutorial vamos a travÃ©s de diferentes aspectos del framework y desarrollaremos una sencilla aplicaciÃ³n Java SE que almacena y recupera datos desde una base de datos relacional. Usaremos las siguientes bibliotecas/entornos:
+En este tutorial vamos a través de diferentes aspectos del framework y desarrollaremos una sencilla aplicación Java SE que almacena y recupera datos desde una base de datos relacional. Usaremos las siguientes bibliotecas/entornos:
 
 * maven >= 3.0 como tool de Build
 * JPA 2.0 contenida en en Java Enterprise Edition (JEE) 6.0
@@ -70,11 +70,11 @@ The libraries our implementation depends on are added to the dependencies sectio
 </dependencies>
 ```
 
-Para tener una mejor visiÃ³n de conjunto de las versiones separadas, definimos cada versiÃ³n como una propiedad Maven y referencia mÃ¡s adelante en la secciÃ³n de dependencias.
+Para tener una mejor visión de conjunto de las versiones separadas, definimos cada versión como una propiedad Maven y referencia más adelante en la sección de dependencias.
 
 ###0.2.EntityManager and Persistence Unit
 
-Ahora empezamos a implementar nuestra primera funcionalidad JPA. Vamos a empezar con una clase simple que proporciona un mÃ©todo run() que se invoca en el mÃ©todo principal de la aplicaciÃ³n:
+Ahora empezamos a implementar nuestra primera funcionalidad JPA. Vamos a empezar con una clase simple que proporciona un método run() que se invoca en el método principal de la aplicación:
 
 ```java
 public class Main {
@@ -110,7 +110,7 @@ public class Main {
 
 ##1. EntityManager
 
-Casi toda la interacciÃ³n con JPA se hace a travÃ©s del EntityManager. Para obtener una instancia de un EntityManager, tenemos que crear una instancia de la EntityManagerFactory. Normalmente sÃ³lo necesitamos una EntityManagerFactory por  "unidad de persistencia" por aplicaciÃ³n. Una unidad de persistencia es un conjunto de clases de la JPA que se gestiona junto con la configuraciÃ³n de base de datos en un archivo llamado persistence.xml
+Casi toda la interacción con JPA se hace a través del EntityManager. Para obtener una instancia de un EntityManager, tenemos que crear una instancia de la EntityManagerFactory. Normalmente sólo necesitamos una EntityManagerFactory por  "unidad de persistencia" por aplicación. Una unidad de persistencia es un conjunto de clases de la JPA que se gestiona junto con la configuración de base de datos en un archivo llamado persistence.xml
 
 
 ```xml
@@ -129,29 +129,29 @@ Casi toda la interacciÃ³n con JPA se hace a travÃ©s del EntityManager. Para 
     </persistence>
 ```
 
-Este archivo se crea en la carpeta src/main/resource/META-IN del proyecto Maven. Como se puede ver, definimos una unidad de persistencia  con el nombre *PersistenceUnit* que tiene el tipo de transacciÃ³n RESOURCE_LOCAL. El tipo de transacciÃ³n determina cÃ³mo las transacciones se manejan en la aplicaciÃ³n.
+Este archivo se crea en la carpeta src/main/resource/META-IN del proyecto Maven. Como se puede ver, definimos una unidad de persistencia  con el nombre *PersistenceUnit* que tiene el tipo de transacción RESOURCE_LOCAL. El tipo de transacción determina cómo las transacciones se manejan en la aplicación.
 
-En nuestra aplicaciÃ³n de ejemplo no tenemos contenedor JEE por lo que tenemos que manejar las transacciones nosotros mismos, de ahÃ­ que se especifique  **RESOURCE_LOCAL**. Cuando se utiliza un contenedor JEE entonces el contenedor es responsable de la creaciÃ³n de la EntityManagerFactory y sÃ³lo le proporciona que EntityManager. El contenedor tambiÃ©n se encarga del comienzo y final de cada transacciÃ³n. En ese caso se proporcionarÃ¡ el valor **JTA**.
+En nuestra aplicación de ejemplo no tenemos contenedor JEE por lo que tenemos que manejar las transacciones nosotros mismos, de ahí que se especifique  **RESOURCE_LOCAL**. Cuando se utiliza un contenedor JEE entonces el contenedor es responsable de la creación de la EntityManagerFactory y sólo le proporciona que EntityManager. El contenedor también se encarga del comienzo y final de cada transacción. En ese caso se proporcionará el valor **JTA**.
   
 
 ##2. En persistence.xml 
 
-Se informa al proveedor de JPA sobre la base de datos que queremos utilizar. Esto se hace mediante la especificaciÃ³n del controlador JDBC que Hibernate debe utilizar. Como queremos usar la base de datos [H2](www.h2database.com), la propiedad **connection.driver_class** se establece en el valor org.h2.Driver.
+Se informa al proveedor de JPA sobre la base de datos que queremos utilizar. Esto se hace mediante la especificación del controlador JDBC que Hibernate debe utilizar. Como queremos usar la base de datos [H2](www.h2database.com), la propiedad **connection.driver_class** se establece en el valor org.h2.Driver.
  
-  + Tenemos que decirle a Hibernate el dialecto JDBC que debe utilizar. Como Hibernate proporciona una implementaciÃ³n de dialecto dedicado para H2, elegimos Ã©ste con la propiedad **hibernate.dialect**. Con este dialecto de Hibernate es capaz de crear las sentencias SQL apropiados para la base de datos de H2.
+  + Tenemos que decirle a Hibernate el dialecto JDBC que debe utilizar. Como Hibernate proporciona una implementación de dialecto dedicado para H2, elegimos éste con la propiedad **hibernate.dialect**. Con este dialecto de Hibernate es capaz de crear las sentencias SQL apropiados para la base de datos de H2.
 
 
-Por Ãºltimo, pero no menos importante ofrecemos tres opciones que vienen muy Ãºtil en el desarrollo de una nueva aplicaciÃ³n, pero que no serÃ­a utilizado en entornos de producciÃ³n. El primero de ellos es la propiedad **hibernate.hbm2ddl.auto** que le dice a Hibernate como crear todas las tablas a partir de cero desde el inicio. Si ya existe la tabla, se eliminarÃ¡. En nuestra aplicaciÃ³n de ejemplo esta es una buena caracterÃ­stica que podemos confiar en el hecho de que la base de datos estÃ¡ vacÃ­a en la a principios y que todos los cambios que hemos hecho en el esquema desde nuestra Ãºltimo inicio de la aplicaciÃ³n se reflejan en el esquema.
+Por último, pero no menos importante ofrecemos tres opciones que vienen muy útil en el desarrollo de una nueva aplicación, pero que no sería utilizado en entornos de producción. El primero de ellos es la propiedad **hibernate.hbm2ddl.auto** que le dice a Hibernate como crear todas las tablas a partir de cero desde el inicio. Si ya existe la tabla, se eliminará. En nuestra aplicación de ejemplo esta es una buena característica que podemos confiar en el hecho de que la base de datos está vacía en la a principios y que todos los cambios que hemos hecho en el esquema desde nuestra último inicio de la aplicación se reflejan en el esquema.
 
-La segunda opciÃ³n es **hibernate.show_sql** que se le dice a Hibernate para que imprima cada declaraciÃ³n SQL que se emite a la base de datos en la lÃ­nea de comandos. Con esta opciÃ³n habilitada podemos rastrear fÃ¡cilmente todas las declaraciones y echar un vistazo si todo funciona como se esperaba. Y finalmente le decimos a Hibernate que imprima de una manera agradable la salida SQL para una mejor legibilidad estableciendo la  propiedad hibernate.format_sql en true.
+La segunda opción es **hibernate.show_sql** que se le dice a Hibernate para que imprima cada declaración SQL que se emite a la base de datos en la línea de comandos. Con esta opción habilitada podemos rastrear fácilmente todas las declaraciones y echar un vistazo si todo funciona como se esperaba. Y finalmente le decimos a Hibernate que imprima de una manera agradable la salida SQL para una mejor legibilidad estableciendo la  propiedad hibernate.format_sql en true.
 
 
 ##3. Transacciones
  
-DespuÃ©s de haber obtenido una instancia de la **EntityManagerFactory** y de ella una instancia de EntityManager podemos utilizarlos en el mÃ©todo **persistPerson** para salvar algunos datos en la base de datos. Ten en cuenta que despuÃ©s de lo que hemos hecho nuestro trabajo tenemos que cerrar tanto el EntityManager asÃ­ como la EntityManagerFactory.
+Después de haber obtenido una instancia de la **EntityManagerFactory** y de ella una instancia de EntityManager podemos utilizarlos en el método **persistPerson** para salvar algunos datos en la base de datos. Ten en cuenta que después de lo que hemos hecho nuestro trabajo tenemos que cerrar tanto el EntityManager así como la EntityManagerFactory.
 
 
-El EntityManager representa una unidad de persistencia y por lo tanto vamos a necesitar en la aplicacion **RESOURCE_LOCAL** sÃ³lo una instancia del EntityManager. Una unidad de persistencia es una memoria cachÃ© para las entidades que representan partes del estado almacenados en la base de datos, asÃ­ como una conexiÃ³n a la base de datos. Con el fin de almacenar datos en la base de datos, por lo tanto tenemos que pasarlo al EntityManager y con ello a la cachÃ© subyacente. En caso de que quiera crear una nueva fila en la base de datos, esto se hace invocando el mÃ©todo persist () en el EntityManager como se demuestra en el siguiente cÃ³digo:
+El EntityManager representa una unidad de persistencia y por lo tanto vamos a necesitar en la aplicacion **RESOURCE_LOCAL** sólo una instancia del EntityManager. Una unidad de persistencia es una memoria caché para las entidades que representan partes del estado almacenados en la base de datos, así como una conexión a la base de datos. Con el fin de almacenar datos en la base de datos, por lo tanto tenemos que pasarlo al EntityManager y con ello a la caché subyacente. En caso de que quiera crear una nueva fila en la base de datos, esto se hace invocando el método persist () en el EntityManager como se demuestra en el siguiente código:
 
 ```java
  private void persistPerson(EntityManager entityManager) {
@@ -173,9 +173,9 @@ El EntityManager representa una unidad de persistencia y por lo tanto vamos a ne
  ```
  
  
-Pero antes de que podamos llamar a **persist()** tenemos que abrir una nueva transacciÃ³n llamando **transaction.begin()** en un nuevo objeto de transacciones que hemos recuperado del EntityManager. Si omitimos este llamado, Hibernate podrÃ­a lanzar una **IllegalStateException** que nos dice que nos hemos olvidado de ejecutar el persisten() dentro de una transacciÃ³n:
+Pero antes de que podamos llamar a **persist()** tenemos que abrir una nueva transacción llamando **transaction.begin()** en un nuevo objeto de transacciones que hemos recuperado del EntityManager. Si omitimos este llamado, Hibernate podría lanzar una **IllegalStateException** que nos dice que nos hemos olvidado de ejecutar el persisten() dentro de una transacción:
 
-DespuÃ©s de llamar a persistir () tenemos que confirmar (*commit*) la transacciÃ³n, es decir, enviar los datos a la base de datos y almacenarla allÃ­. En caso de que sea lanzada una excepciÃ³n dentro del bloque try, tenemos que deshacer (*Rollback*) la transacciÃ³n hemos comenzado antes. Pero como sÃ³lo podemos deshacer transacciones activas, tenemos que comprobar antes si la transacciÃ³n actual ya estÃ¡ en marcha, ya que puede ocurrir que la excepciÃ³n se produce dentro de la convocatoria **transaction.begin ()**.
+Después de llamar a persistir () tenemos que confirmar (*commit*) la transacción, es decir, enviar los datos a la base de datos y almacenarla allí. En caso de que sea lanzada una excepción dentro del bloque try, tenemos que deshacer (*Rollback*) la transacción hemos comenzado antes. Pero como sólo podemos deshacer transacciones activas, tenemos que comprobar antes si la transacción actual ya está en marcha, ya que puede ocurrir que la excepción se produce dentro de la convocatoria **transaction.begin ()**.
 
 ##4. Tables
 
@@ -213,19 +213,19 @@ public class Person {
 	}
 ```
  	
-Por otro lado se puede especificar mÃ¡s informaciÃ³n para cada columna usando los otros atributos que la anotaciÃ³n @Column ofrece:
+Por otro lado se puede especificar más información para cada columna usando los otros atributos que la anotación @Column ofrece:
 
 ```java
 @Column(name = "FIRST_NAME", length = 100, nullable = false, unique = false)
 ```
 
 
-Intentar insertar nulo en "FIRST_NAME" en esta tabla provocarÃ­a una violaciÃ³n de constraint en la base de datos y hacer que la transacciÃ³n actual haga un rollback.
+Intentar insertar nulo en "FIRST_NAME" en esta tabla provocaría una violación de constraint en la base de datos y hacer que la transacción actual haga un rollback.
 
-Las dos anotaciones @Id y @GeneratedValue dicen a JPA que este valor es la clave principal de esta tabla y que debe ser generado de forma automÃ¡tica
+Las dos anotaciones @Id y @GeneratedValue dicen a JPA que este valor es la clave principal de esta tabla y que debe ser generado de forma automática
 
 
-En el cÃ³digo de ejemplo anterior, hemos aÃ±adido las anotaciones JPA a los mÃ©todos getter para cada campo que se debe asignar a una columna de base de datos. Otra forma serÃ­a anotando el campo directamente en lugar de su mÃ©todo getter.
+En el código de ejemplo anterior, hemos añadido las anotaciones JPA a los métodos getter para cada campo que se debe asignar a una columna de base de datos. Otra forma sería anotando el campo directamente en lugar de su método getter.
 
 
 ```java
@@ -242,9 +242,9 @@ public class Person {
     ...
 ```
 
-Las dos formas son mÃ¡s o menos iguales, la Ãºnica diferencia que tienen juega un papel cuando se desea anular anotaciones para los campos en subclases. Como veremos en el curso ulterior de este tutorial, es posible extender una entidad existente con el fin de heredar sus campos. Cuando ponemos las anotaciones JPA sobre el terreno, no podemos ignorar que lo que podamos reemplazando el mÃ©todo getter correspondiente.
+Las dos formas son más o menos iguales, la única diferencia que tienen juega un papel cuando se desea anular anotaciones para los campos en subclases. Como veremos en el curso ulterior de este tutorial, es posible extender una entidad existente con el fin de heredar sus campos. Cuando ponemos las anotaciones JPA sobre el terreno, no podemos ignorar que lo que podamos reemplazando el método getter correspondiente.
 
-Uno tambiÃ©n tiene que prestar atenciÃ³n para guardar el camino para anotar entidades del mismo para jerarquÃ­a de una entidad. se puede mezclar la anotaciÃ³n de los campos y mÃ©todos dentro de un proyecto JPA, pero dentro de una entidad y todas sus subclases se debe ser consistente. Si tiene que cambiar la forma de anotaciÃ³n dentro de una jerarquÃ­a subclase, puede utilizar el acceso de anotaciones JPA para especificar que una determinada subclase utiliza de una manera diferente para anotar campos y mÃ©todos:
+Uno también tiene que prestar atención para guardar el camino para anotar entidades del mismo para jerarquía de una entidad. se puede mezclar la anotación de los campos y métodos dentro de un proyecto JPA, pero dentro de una entidad y todas sus subclases se debe ser consistente. Si tiene que cambiar la forma de anotación dentro de una jerarquía subclase, puede utilizar el acceso de anotaciones JPA para especificar que una determinada subclase utiliza de una manera diferente para anotar campos y métodos:
     
 ```java
 @Entity
@@ -256,7 +256,7 @@ public class Geek extends Person {
 ```
 
 
-El fragmento de cÃ³digo anterior le dice a JPA que esta clase va a utilizar las anotaciones en el nivel de mÃ©todo, mientras que la superclase puede tener anotaciones a nivel campo.
+El fragmento de código anterior le dice a JPA que esta clase va a utilizar las anotaciones en el nivel de método, mientras que la superclase puede tener anotaciones a nivel campo.
 
 
 ```SQL
@@ -268,9 +268,9 @@ Hibernate: insert into T_PERSON (id, FIRST_NAME, LAST_NAME) values (null, ?, ?)
 
 ```
 
-Como podemos ver, Hibernate *Dropea* la tabla T_PERSON  si existe y vuelve a crearla despuÃ©s. Se crea la tabla con dos columnas de tipo varchar (255) (FIRST_NAME, LAST_NAME) y una columna llamada IdentificaciÃ³n de tipo *big int*. La Ãºltima columna se define como clave principal y sus valores son generadas automÃ¡ticamente por la base de datos cuando insertamos un nuevo valor.
+Como podemos ver, Hibernate *Dropea* la tabla T_PERSON  si existe y vuelve a crearla después. Se crea la tabla con dos columnas de tipo varchar (255) (FIRST_NAME, LAST_NAME) y una columna llamada Identificación de tipo *big int*. La última columna se define como clave principal y sus valores son generadas automáticamente por la base de datos cuando insertamos un nuevo valor.
 
-Podemos comprobar que todo es correcto con el Shell que se incluye con H2. Para utilizar esta Shell sÃ³lo tenemos la h2-1.3.176.jar archivo jar:
+Podemos comprobar que todo es correcto con el Shell que se incluye con H2. Para utilizar esta Shell sólo tenemos la h2-1.3.176.jar archivo jar:
 
 >java -cp h2-1.3.176.jar org.h2.tools.Shell -url jdbc:h2:~/jpa
 
@@ -290,9 +290,9 @@ El resultado del query anterior muestra que la tabla T_PERSON realmente contiene
 
 ##5. Herencia
 
-DespuÃ©s de haber llevado a cabo la configuracio0n en este caso de uso fÃ¡cil, nos vamos ahora a considerar casos de uso mÃ¡s complejos. 
+Después de haber llevado a cabo la configuracio0n en este caso de uso fácil, nos vamos ahora a considerar casos de uso más complejos. 
 
-Supongamos que queremos almacenar junto a personas tambiÃ©n informaciÃ³n sobre los aficiones-geek y de su lenguaje de programaciÃ³n favorito. Como los *geeks* tambiÃ©n son personas, nos modelamos esto en el mundo Java como relaciÃ³n subclase de persona:
+Supongamos que queremos almacenar junto a personas también información sobre los aficiones-geek y de su lenguaje de programación favorito. Como los *geeks* también son personas, nos modelamos esto en el mundo Java como relación subclase de persona:
 
 
 ```java
@@ -325,7 +325,7 @@ Agregando las anotaciones @Entity y @Table a la clase le deja a Hibernate crear 
 
 >Hibernate: create table T_PERSON (DTYPE varchar(31) not null, id bigint generated by default as identity, FIRST_NAME varchar(255), LAST_NAME varchar(255), FAV_PROG_LANG varchar(255), primary key (id))
 
-Podemos ver que Hibernate crea una tabla para ambas entidades y pone la informaciÃ³n si hemos almacenado una persona o un *Geek* Dentro de un nuevo nombre de la columna DTYPE. Vamos a persistir algunos geeks en nuestra base de datos (para facilitarla lectura he omitido el bloque que cacha cualquier excepciÃ³n y deshace la transacciÃ³n):
+Podemos ver que Hibernate crea una tabla para ambas entidades y pone la información si hemos almacenado una persona o un *Geek* Dentro de un nuevo nombre de la columna DTYPE. Vamos a persistir algunos geeks en nuestra base de datos (para facilitarla lectura he omitido el bloque que cacha cualquier excepción y deshace la transacción):
 
 ```java	
 private void persistGeek(EntityManager entityManager) {
@@ -354,7 +354,7 @@ private void persistGeek(EntityManager entityManager) {
 }
 ```
 
-DespuÃ©s de haber ejecutado este mÃ©todo, el la tabla T_PERSON contiene los siguientes filas (junto con la persona que ya hemos insertado):
+Después de haber ejecutado este método, el la tabla T_PERSON contiene los siguientes filas (junto con la persona que ya hemos insertado):
 
 ```SQL
 sql> select * from t_person;
@@ -368,9 +368,9 @@ sql> select * from t_person;
 |Geek   | 4  | Christian  | Cup       | Java|
 
 
-Como era de esperar la nueva columna DTYPE determina quÃ© tipo de persona que tenemos. La columna FAV_PROG_LANG tiene el valor null para las personas que son no geeks.
+Como era de esperar la nueva columna DTYPE determina qué tipo de persona que tenemos. La columna FAV_PROG_LANG tiene el valor null para las personas que son no geeks.
 
-Si no te gusta el nombre o tipo de la columna de discriminador, se puede cambiar con la anotaciÃ³n correspondiente. A continuaciÃ³n queremos que la columna tiene el nombre PERSON_TYPE y es una columna entera en lugar de una columna de serie:
+Si no te gusta el nombre o tipo de la columna de discriminador, se puede cambiar con la anotación correspondiente. A continuación queremos que la columna tiene el nombre PERSON_TYPE y es una columna entera en lugar de una columna de serie:
 
 ```java
 DiscriminatorColumn (Name = "PERSON_TYPE", discriminatorType = DiscriminatorType.INTEGER)
@@ -390,14 +390,14 @@ Esto produce para el siguiente resultado:
 |2215460     | 3  | Thomas     | Micro     | C#|
 |2215460     | 4  | Christian  | Cup       | Java|
 
-No en todas las situaciones que desea tener una tabla para todos los tipos diferentes que desea almacenar en su base de datos. Este es especialmente el caso cuando los diferentes tipos no tienen casi todas las columnas en comÃºn. Por lo tanto JPA permite especificar cÃ³mo diseÃ±ar las diferentes columnas. Estas tres opciones disponibles:
+No en todas las situaciones que desea tener una tabla para todos los tipos diferentes que desea almacenar en su base de datos. Este es especialmente el caso cuando los diferentes tipos no tienen casi todas las columnas en común. Por lo tanto JPA permite especificar cómo diseñar las diferentes columnas. Estas tres opciones disponibles:
 
-* SINGLE_TABLE: Esta estrategia mapas de todas las clases a una sola tabla. Como consecuencia de que cada fila tiene todas las columnas para todos los tipos de la base de datos de necesidades de almacenamiento adicional para las columnas vacÃ­as. Por otro lado esta estrategia trae la ventaja de que una consulta nunca tiene que utilizar una combinaciÃ³n y por lo tanto puede ser mucho mÃ¡s rÃ¡pido.
+* SINGLE_TABLE: Esta estrategia mapas de todas las clases a una sola tabla. Como consecuencia de que cada fila tiene todas las columnas para todos los tipos de la base de datos de necesidades de almacenamiento adicional para las columnas vacías. Por otro lado esta estrategia trae la ventaja de que una consulta nunca tiene que utilizar una combinación y por lo tanto puede ser mucho más rápido.
 
-* JOINED: Esta estrategia crea para cada tipo de una tabla separada. Cada tabla por lo tanto sÃ³lo contiene el estado de la entidad asignada. Para cargar una sola entidad, el proveedor JPA tiene que cargar los datos de una entidad de todas las mesas de la entidad estÃ¡ asignado. Este enfoque reduce el espacio de almacenamiento, pero por otro lado introduce unirse a las consultas que pueden disminuir la velocidad de consulta de manera significativa.
+* JOINED: Esta estrategia crea para cada tipo de una tabla separada. Cada tabla por lo tanto sólo contiene el estado de la entidad asignada. Para cargar una sola entidad, el proveedor JPA tiene que cargar los datos de una entidad de todas las mesas de la entidad está asignado. Este enfoque reduce el espacio de almacenamiento, pero por otro lado introduce unirse a las consultas que pueden disminuir la velocidad de consulta de manera significativa.
 
-* TABLE_PER_CLASS: Al igual que la estrategia ACUMULADOS, esta estrategia crea una tabla separada para cada tipo de entidad. Pero en contraste con la estrategia theJOINED estas tablas contienen toda la informaciÃ³n necesaria para cargar esta entidad. Por lo tanto no se unen a las consultas son necesarias para la carga de las entidades pero introduce en situaciones donde la subclase concreta no se conoce quries SQL adicionales con el fin de determinar Ã©l.
-Para cambiar nuestra aplicaciÃ³n para utilizar la estrategia ACUMULADOS, todo lo que tenemos que hacer es aÃ±adir la siguiente anotaciÃ³n a la clase base:
+* TABLE_PER_CLASS: Al igual que la estrategia ACUMULADOS, esta estrategia crea una tabla separada para cada tipo de entidad. Pero en contraste con la estrategia theJOINED estas tablas contienen toda la información necesaria para cargar esta entidad. Por lo tanto no se unen a las consultas son necesarias para la carga de las entidades pero introduce en situaciones donde la subclase concreta no se conoce quries SQL adicionales con el fin de determinar él.
+Para cambiar nuestra aplicación para utilizar la estrategia ACUMULADOS, todo lo que tenemos que hacer es añadir la siguiente anotación a la clase base:
 
 >Inheritance (Estrategia = InheritanceType.JOINED)
 
@@ -420,7 +420,7 @@ create table T_PERSON (id bigint generated by default as identity,
 )
 ```
 
-DespuÃ©s de haber agregado la persona y los geeks que obtenemos el siguiente resultado:
+Después de haber agregado la persona y los geeks que obtenemos el siguiente resultado:
 
 ```SQL
 sql> select * from t_person;
@@ -1219,4 +1219,5 @@ create table T_ID_CARD (
      primary key (id)
 )
 ```
+
 
